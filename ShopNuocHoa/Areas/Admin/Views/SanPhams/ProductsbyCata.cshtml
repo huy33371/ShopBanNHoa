@@ -1,0 +1,144 @@
+﻿@model IEnumerable<ShopNuocHoa.Areas.Admin.Models.SanPham>
+@using ShopNuocHoa.Areas.Admin.Models
+@{
+    ViewBag.Title = "ProductsbyCata";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Areas/Admin/Data/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<!-- Main Content -->
+<div id="content">
+
+    <!-- Topbar -->
+    @*<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <h1 class="h3 mb-2 text-gray-800" style="color:black"><b>Quản lý sản phẩm</b></h1>
+        </nav>*@
+    <!-- End of Topbar -->
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">Danh mục: @ViewBag.tenLoai</h4>
+                <a class="float-lg-right btn btn-primary" href="/Admin/SanPhams/Create">Thêm sản phẩm</a>
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr style="Background: #456bd9">
+                                <th style="color:white">
+                                    @Html.DisplayNameFor(model => model.tenSP)
+                                </th>
+                                <th style="color:white">
+                                    @Html.DisplayNameFor(model => model.ThuongHieu.tenTH)
+                                </th>
+                                <th style="color:white">
+                                    @Html.DisplayNameFor(model => model.moTa)
+                                </th>
+                                <th style="color:white">
+                                    @Html.DisplayNameFor(model => model.donGia)
+                                </th>
+                                <th style="color:white">
+                                    @Html.DisplayNameFor(model => model.soLuong)
+                                </th>
+                                <th style="color:white">
+                                    @Html.DisplayNameFor(model => model.Anh)
+                                </th>
+                                <th style="color:white">Tuỳ chọn</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.tenSP)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ThuongHieu.tenTH)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.moTa)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.donGia)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.soLuong)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Anh)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="col-2">
+                                        <a href="/Admin/SanPhams/Details/@item.maSP">
+                                            <b>@Html.DisplayFor(modelItem => item.tenSP)</b>
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        @{
+                                            ThuongHieuModels thModel = new ThuongHieuModels();
+                                            ThuongHieu th = thModel.get1TH(item.maTH);
+                                        }
+                                        @th.tenTH
+                                    </td>
+
+                                    @{
+                                        string moTa = item.moTa;
+
+                                    }
+                                    @if (moTa.Length > 80)
+                                    {
+                                        <td class="col-sm-3">
+
+                                            @moTa.Substring(0, 80)...
+
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-sm-3">
+
+                                            @moTa
+
+                                        </td>
+                                    }
+
+                                    <td style="color:red">
+                                        @string.Format("{0:#,##0}", item.donGia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.soLuong)
+                                    </td>
+                                    <td>
+                                        <img src="~/Content/images/@Html.DisplayFor(modelItem => item.Anh)" width="100" height="100" />
+
+                                    </td>
+                                    <td style="text-align : center">
+                                        <p>
+                                            @Html.ActionLink("Sửa", "Edit", new { id = item.maSP }, new { @class = "btn btn-primary" })
+                                        </p>
+                                        <p>
+                                            @Html.ActionLink("Xoá", "Delete", new { id = item.maSP }, new { @class = "btn btn-danger" })
+                                        </p>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+</div>
+

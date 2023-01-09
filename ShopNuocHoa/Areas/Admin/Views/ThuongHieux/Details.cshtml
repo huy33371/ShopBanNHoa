@@ -1,0 +1,45 @@
+﻿@model ShopNuocHoa.Areas.Admin.Models.ThuongHieu
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.tenTH)</h4>
+        </div>
+        <div class="card-body">
+
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.maTH):
+                    <b>
+                        @Html.DisplayFor(model => model.maTH)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.tenTH):
+                    <b>
+                        @Html.DisplayFor(model => model.tenTH)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.moTa): <b>@Html.DisplayFor(model => model.moTa)</b>
+                </dt>
+            </dl>
+
+        </div>
+        <div class="card-footer py-3">
+            <p>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.maTH }, new { @class = "btn btn-primary" })
+                <a class="btn btn-danger" href="/Admin/ThuongHieux/Index">Quay lại</a>
+            </p>
+        </div>
+    </div>
+</div>

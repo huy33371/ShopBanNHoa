@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ShopNuocHoa.Models.SanPham>
+@using System.Data
+@using System.Data.SqlClient
+@using ShopNuocHoa.Models
+@using System.Configuration
+@{
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["strConnect"].ConnectionString);
+    SqlDataAdapter dalsp, daTH;
+    dalsp = new SqlDataAdapter("Select * from LoaiSP", con);
+    daTH = new SqlDataAdapter("Select * from ThuongHieu", con);
+    DataTable dtlsp, dtTH;
+    dtlsp = new DataTable();
+    dtTH = new DataTable();
+    dalsp.Fill(dtlsp);
+    daTH.Fill(dtTH);
+}
+
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar_section">
+        <div class="sidebar_title">
+            <h5>Product Category</h5>
+        </div>
+        <ul class="sidebar_categories">
+            <li><a href="/Product/ProCata">Tất cả sản phẩm</a></li>
+
+            @for (int i = 0; i < dtlsp.Rows.Count; i++)
+            {
+                if (dtlsp.Rows[i][1].ToString().Equals(ViewBag.tenLoai))
+                {
+                    <li class="active"><a href="/Product/ProCata/@dtlsp.Rows[i][0].ToString()"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>@dtlsp.Rows[i][1].ToString()</a></li>
+                }
+                else
+                {
+                    <li><a href="/Product/ProCata/@dtlsp.Rows[i][0].ToString()">@dtlsp.Rows[i][1].ToString()</a></li>
+                }
+
+            }
+
+
+        </ul>
+    </div>
+
+
+
+
+    <!-- Thuong hieu -->
+    <div class="sidebar_section">
+        <div class="sidebar_title">
+            <h5>Product brands</h5>
+        </div>
+        <ul class="sidebar_categories">
+            @for (int i = 0; i < dtTH.Rows.Count; i++)
+            {
+                if (dtTH.Rows[i][1].ToString().Equals(ViewBag.tenTH))
+                {
+                    <li class="active"><a href="/Product/ProbyTH/@dtTH.Rows[i][0].ToString()"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>@dtTH.Rows[i][1].ToString()</a></li>
+                }
+                else
+                {
+                    <li><a href="/Product/ProbyTH/@dtTH.Rows[i][0].ToString()">@dtTH.Rows[i][1].ToString()</a></li>
+                }
+            }
+
+            @*<li><i class="fa fa-square-o" aria-hidden="true"></i><span>Aqua Di Gio</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>VERSACE</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Amouage</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>ARMAF</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>BURBERRY</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>CHANEL</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>DIOR</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>HERMES</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>GIORGIO ARMANI</span></li>
+        <li><i class="fa fa-square-o" aria-hidden="true"></i><span>LOUIS VUITTON</span></li>*@
+        </ul>
+        <div class="show_more">
+            <span><span>+</span>Show More</span>
+        </div>
+    </div>
+
+</div>

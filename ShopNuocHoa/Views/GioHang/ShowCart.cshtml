@@ -1,0 +1,118 @@
+﻿@model ShopNuocHoa.Models.GioHang
+@{
+    ViewBag.Title = "ShowCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="~/Content/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+<link href="~/Content/css/menu.css" rel="stylesheet" type="text/css" media="all" />
+<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+      rel="stylesheet">
+<link href="~/Content/styles/single_styles.css" rel="stylesheet" />
+
+<div class="privacy py-sm-5 py-4">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <br />
+        </h3>
+        @{
+            int Tongtien = 0;
+            if (Model != null && Model.ItemGioHangs.Count() > 0)
+            {
+                <div class="checkout-right">
+                    <h4 class="mb-sm-4 mb-3">
+                        Trong giỏ hàng của bạn có:
+                        <span>@Model.ItemGioHangs.Count() sản phẩm</span>
+                    </h4>
+                    <div class="table-responsive">
+                        <table class="timetable_sub">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Product Name</th>
+                                    <th>Số lượng</th>
+                                    <th>Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ItemGioHangs)
+                                {
+                                    int total = item.sanPham_shopping.donGia * item.soLuong_shopping;
+                                    Tongtien += total;
+                                    <tr class="rem">
+                                        <td>
+                                            <a href="#">
+                                                <img src="~/Content/images/@item.sanPham_shopping.Anh" alt=" " width="100" height="100">
+                                            </a>
+                                        </td>
+                                        <td class="invert">@item.sanPham_shopping.tenSP</td>
+                                        <td class="invert">
+                                            <div class="quantity">
+                                                <div class="quantity-select">
+                                                    <b>
+                                                        <span name="soLuong">@item.soLuong_shopping</span>
+                                                    </b>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="invert"><span>@string.Format("{0:#,##0}", total)</span></td>
+                                        <td class="invert">
+                                            <div class="rem">
+                                                <a href="/GioHang/delete_SP/@item.Id">
+                                                    <img class="btn" width="50" src="~/Content/images/cancel.png" />
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" style="text-align:right">
+                                    <h5 style="color:red">
+                                        <b>@string.Format("{0:#,##0}", Tongtien) VND</b>
+                                        </h5>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="checkout-left">
+                    <div class="address_form_agile mt-sm-5 mt-4">
+                        <div class="checkout-right-basket">
+
+                            <a href="/Home/Index">
+                                Quay lại mua hàng
+                                <span class="far fa-hand-point-right"></span>
+                            </a>
+                            <button class="submit check_out btn float-lg-right">Thanh toán</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <br />
+                <h4>Không có sản phẩm trong giỏ hàng</h4>
+                <div class="checkout-left">
+                    <div class="address_form_agile mt-sm-5 mt-4">
+                        <div class="checkout-right-basket">
+
+                            <a href="/Home/Index">
+                                Quay lại mua hàng
+                                <span class="far fa-hand-point-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+
+    </div>
+</div>

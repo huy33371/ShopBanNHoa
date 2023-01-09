@@ -1,0 +1,150 @@
+﻿@model ShopNuocHoa.Models.SanPham
+@using ShopNuocHoa.Models
+@{
+    ViewBag.Title = "ProDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/styles/single_styles.css">
+<div class="container single_product_container">
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/Home/Index">Trang chủ</a></li>
+                        @{ 
+                            LoaiSP loaiSP = ViewBag.LoaiSP as LoaiSP;
+                        }
+                        <li><a href="/Product/ProCata/@loaiSP.maLoai"><i class="fa fa-angle-right" aria-hidden="true"></i>@loaiSP.tenLoai</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.tenSP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="single_product_pics">
+                    <div class="row">
+                        <div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+                            <div class="single_product_thumbnails">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-9 image_col order-lg-2 order-1">
+                            <div class="single_product_image">
+                                <div class="single_product_image_background">
+                                    <img src="~/Content/images/@Model.Anh" alt="" data-image="~/Content/images/@Model.Anh" width="350" height="350">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        @{
+                            ThuongHieu th = ViewBag.TH as ThuongHieu;
+                            string tenTH = th.tenTH;
+                        }
+                        <a href="/Product/ProbyTH/@th.maTH"><h4 style="color:lightslategray">@tenTH</h4></a>
+                        
+                        <h2>@Model.tenSP</h2>
+                        <p>@Model.moTa</p>
+                    </div>
+                    <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                        @{
+                            if (Model.donGia > 5000000)
+                            {
+                                <span class="ti-truck" style="color:green"></span><span style="color:green">Miễn phí vận chuyển</span>
+                            }
+                            else
+                            {
+                                <span class="ti-truck" style="color:gray"></span><span style="color:gray">Miễn phí vận chuyển</span>
+                            }
+                        }
+
+                    </div>
+                    @{
+                        if (Model.donGia > 50000000)
+                        {
+                            <br />
+                            <div class="product_price">@string.Format("{0:#,##0}", Model.donGia) đ</div>
+                        }
+                        else
+                        {
+                            <div class="original_price">@string.Format("{0:#,##0}", (Model.donGia + Model.donGia * 20 / 100)) đ</div>
+                            <div class="product_price">@string.Format("{0:#,##0}", Model.donGia) đ</div>
+                        }
+                    }
+
+                    <ul class="star_rating">
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                    </ul>
+
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <span class="col-3">Số lượng:</span>
+                        <div class="quantity_selector">
+                            <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <span id="quantity_value">1</span>
+                            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="red_button add_to_cart_button"><a href="/GioHang/AddtoCart/@Model.maSP">Mua hàng</a></div>
+                        <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+      
+        </div>
+
+    </div>
+
+    <!-- Tabs -->
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="tabs_container">
+                        <div class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                            <h3 class="justify-content-center" style="color: #fe4c67">PRODUCT DESCRIPTION</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <!--mo ta san pham -->
+                    <div id="tab_1" class="tab_container active">
+                        <div class="row">
+                            <div class="col-lg-5 desc_col">
+                                <div class="tab_text_block">
+                                    <h2>@Model.tenSP</h2>
+                                    <p>@Model.moTa</p>
+                                </div>
+                                <div class="tab_text_block">
+                                    <h4 style="color:lightslategray">Brand Information</h4>
+                                    <h3>@th.tenTH</h3>
+                                    <p>@th.moTa</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 offset-lg-2 desc_col">
+                                <div class="tab_image">
+                                    <img src="~/Content/images/@Model.Anh" alt="">
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</div>

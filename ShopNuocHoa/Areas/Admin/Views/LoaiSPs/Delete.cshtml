@@ -1,0 +1,57 @@
+﻿@model ShopNuocHoa.Areas.Admin.Models.LoaiSP
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-danger">Xoá danh mục: @Html.DisplayFor(model => model.tenLoai)</h4>
+            <h5>Bạn có chắc muốn xoá không ?</h5>
+        </div>
+        <div class="card-body">
+
+            <dl class="dl-horizontal " width="100%" cellspacing="0">
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.maLoai):
+                    <b>
+                        @Html.DisplayFor(model => model.maLoai)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.tenLoai):
+                    <b>
+                        @Html.DisplayFor(model => model.tenLoai)
+                    </b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.ghiChu): <b>@Html.DisplayFor(model => model.ghiChu)</b>
+                </dt>
+
+                <dt style="padding-bottom : 10px">
+                    @Html.DisplayNameFor(model => model.Anh) <img src="~/Content/images/@Html.DisplayFor(model => model.Anh)" width="200" height="100" />
+                </dt>
+
+            </dl>
+
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card-footer py-3">
+                <p>
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a class="btn btn-warning" href="/Admin/LoaiSPs/Index">Quay lại</a>
+                </p>
+            </div>
+        }
+
+    </div>
+</div>
+
